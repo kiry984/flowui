@@ -1,65 +1,55 @@
-import Image from "next/image";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
+import { Card } from "@/components/ui/card";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <div className="h-screen bg-zinc-950 text-white flex flex-col">
+      {/* Top bar */}
+      <div className="h-14 border-b border-zinc-800 flex items-center px-6 justify-between">
+        <h1 className="text-2xl font-semibold">FlowUI</h1>
+        <div className="text-zinc-400 text-sm">Runtime Generative UI Studio</div>
+      </div>
+
+      <ResizablePanelGroup direction="horizontal" className="flex-1">
+        {/* Left: Intent */}
+        <ResizablePanel defaultSize={25} minSize={20}>
+          <div className="h-full p-6 flex flex-col">
+            <h2 className="text-lg font-medium mb-4">Intent</h2>
+            <textarea 
+              className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl p-4 text-sm resize-none focus:outline-none"
+              placeholder="Describe your adaptive interface... e.g. dynamic logistics dashboard that mutates on delays"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <button className="mt-4 bg-white text-black px-6 py-3 rounded-2xl font-medium">Generate Adaptive UI</button>
+          </div>
+        </ResizablePanel>
+
+        <ResizableHandle />
+
+        {/* Center: Live Preview */}
+        <ResizablePanel defaultSize={50} minSize={30}>
+          <div className="h-full p-6 flex flex-col">
+            <h2 className="text-lg font-medium mb-4">Live Preview</h2>
+            <Card className="flex-1 bg-zinc-900 border-zinc-700 flex items-center justify-center">
+              <div className="text-center text-zinc-400">
+                <p className="text-sm">Your adaptive component will appear here</p>
+                <p className="text-xs mt-2">Context changes will mutate it in real-time</p>
+              </div>
+            </Card>
+          </div>
+        </ResizablePanel>
+
+        <ResizableHandle />
+
+        {/* Right: Rules */}
+        <ResizablePanel defaultSize={25} minSize={20}>
+          <div className="h-full p-6 flex flex-col">
+            <h2 className="text-lg font-medium mb-4">Rules Engine</h2>
+            <div className="flex-1 bg-zinc-900 border border-zinc-700 rounded-xl p-4 text-xs text-zinc-400">
+              State transitions and fallback rules will live here
+            </div>
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </div>
   );
 }
